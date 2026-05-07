@@ -4,33 +4,33 @@ import { motion, useInView, useMotionValue, animate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
+import { useLang } from "@/components/LangProvider";
 
 interface Stat {
   value: number;
   suffix: string;
-  label: string;
+  labelKey: "years" | "vehicles" | "family";
 }
 
 const stats: Stat[] = [
-  { value: 15, suffix: "+", label: "Years" },
-  { value: 1000, suffix: "+", label: "Vehicles" },
-  { value: 100, suffix: "%", label: "Family-Run" },
+  { value: 15, suffix: "+", labelKey: "years" },
+  { value: 1000, suffix: "+", labelKey: "vehicles" },
+  { value: 100, suffix: "%", labelKey: "family" },
 ];
 
 export default function About() {
+  const { t } = useLang();
+
   return (
-    <section
-      id="about"
-      className="relative py-20 sm:py-32 lg:py-[120px]"
-    >
+    <section id="about" className="relative py-20 sm:py-32 lg:py-[120px]">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <Reveal>
             <div className="relative aspect-[4/5] overflow-hidden bg-elevated border border-border">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="https://images.unsplash.com/photo-1486496572940-2bb2341fdbdf?w=1200&q=80&auto=format&fit=crop"
-                alt="Inside the Deluxe Auto Werks workshop"
+                alt={t.about.imgAlt}
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover grayscale-[30%]"
               />
@@ -40,47 +40,36 @@ export default function About() {
 
           <div>
             <Reveal>
-              <p className="label">Our Story</p>
+              <p className="label">{t.about.label}</p>
             </Reveal>
             <Reveal delay={0.05}>
               <h2
-                className="display mt-4"
-                style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)" }}
+                className="display mt-4 break-words"
+                style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
               >
-                Old-school craft. <br />
-                <span className="text-accent">Modern equipment.</span>
+                {t.about.headingA} <br />
+                <span className="text-accent">{t.about.headingB}</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
-              <div className="mt-8 space-y-5 text-text-secondary leading-relaxed">
-                <p>
-                  Deluxe Auto Werks is a family-run body shop in West Chicago,
-                  Illinois. Scott and the team built this place around a simple
-                  idea: do the job the right way the first time, every time —
-                  whether it&apos;s a fender bender, a full repaint, or a
-                  ground-up restoration.
-                </p>
-                <p>
-                  We treat every vehicle that rolls through the bay like it&apos;s
-                  ours. Modern computerized frame measurement, factory-spec
-                  refinishing, and the kind of attention to detail that only
-                  comes from people who actually love cars. Custom and
-                  restoration work is where we shine — but we bring the same
-                  pride to a daily driver.
-                </p>
-                <p>
-                  Local, honest, and accountable. When you pick your car up, it
-                  leaves better than it came in.
-                </p>
+              <div className="mt-6 sm:mt-8 space-y-4 sm:space-y-5 text-text-secondary leading-relaxed">
+                <p>{t.about.p1}</p>
+                <p>{t.about.p2}</p>
+                <p>{t.about.p3}</p>
               </div>
             </Reveal>
           </div>
         </div>
 
         <Reveal delay={0.15}>
-          <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 border-t border-border">
+          <div className="mt-16 sm:mt-20 grid grid-cols-1 sm:grid-cols-3 border-t border-border">
             {stats.map((s, i) => (
-              <StatBlock key={s.label} stat={s} index={i} />
+              <StatBlock
+                key={s.labelKey}
+                stat={s}
+                index={i}
+                label={t.about.stats[s.labelKey]}
+              />
             ))}
           </div>
         </Reveal>
@@ -89,7 +78,15 @@ export default function About() {
   );
 }
 
-function StatBlock({ stat, index }: { stat: Stat; index: number }) {
+function StatBlock({
+  stat,
+  index,
+  label,
+}: {
+  stat: Stat;
+  index: number;
+  label: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [display, setDisplay] = useState(0);
@@ -108,20 +105,18 @@ function StatBlock({ stat, index }: { stat: Stat; index: number }) {
   return (
     <div
       ref={ref}
-      className={`p-8 sm:p-10 ${
+      className={`p-6 sm:p-8 lg:p-10 ${
         index > 0 ? "sm:border-l border-t sm:border-t-0 border-border" : ""
       }`}
     >
       <motion.span
         className="display text-text-primary block"
-        style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)" }}
+        style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
       >
         {display}
         <span className="text-accent">{stat.suffix}</span>
       </motion.span>
-      <span className="mt-2 block label !text-text-secondary">
-        {stat.label}
-      </span>
+      <span className="mt-2 block label !text-text-secondary">{label}</span>
     </div>
   );
 }

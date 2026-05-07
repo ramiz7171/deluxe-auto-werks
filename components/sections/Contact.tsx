@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import Button from "@/components/ui/Button";
+import { useLang } from "@/components/LangProvider";
 
 const ADDRESS = "319 Wilson Ave, West Chicago, IL 60185";
 const PHONE_DISPLAY = "(630) 664-2793";
@@ -31,6 +32,7 @@ const empty: FormState = {
 };
 
 export default function Contact() {
+  const { t } = useLang();
   const [form, setForm] = useState<FormState>(empty);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>(
     {}
@@ -46,14 +48,15 @@ export default function Contact() {
 
   const validate = (f: FormState) => {
     const errs: Partial<Record<keyof FormState, string>> = {};
-    if (!f.name.trim()) errs.name = "Required";
-    if (!f.phone.trim()) errs.phone = "Required";
-    else if (!/[\d().\-+\s]{7,}/.test(f.phone)) errs.phone = "Invalid phone";
-    if (!f.email.trim()) errs.email = "Required";
+    if (!f.name.trim()) errs.name = t.contact.errors.required;
+    if (!f.phone.trim()) errs.phone = t.contact.errors.required;
+    else if (!/[\d().\-+\s]{7,}/.test(f.phone))
+      errs.phone = t.contact.errors.phone;
+    if (!f.email.trim()) errs.email = t.contact.errors.required;
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email))
-      errs.email = "Invalid email";
-    if (!f.vehicle.trim()) errs.vehicle = "Required";
-    if (!f.description.trim()) errs.description = "Required";
+      errs.email = t.contact.errors.email;
+    if (!f.vehicle.trim()) errs.vehicle = t.contact.errors.required;
+    if (!f.description.trim()) errs.description = t.contact.errors.required;
     return errs;
   };
 
@@ -68,30 +71,28 @@ export default function Contact() {
   };
 
   return (
-    <section
-      id="contact"
-      className="relative py-20 sm:py-32 lg:py-[120px]"
-    >
+    <section id="contact" className="relative py-20 sm:py-32 lg:py-[120px]">
       <Container>
         <Reveal>
-          <p className="label">Get Started</p>
+          <p className="label">{t.contact.label}</p>
         </Reveal>
         <Reveal delay={0.05}>
           <h2
-            className="display mt-4 max-w-3xl"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
+            className="display mt-4 max-w-3xl break-words"
+            style={{ fontSize: "clamp(2rem, 6vw, 4.5rem)" }}
           >
-            Ready when <span className="text-accent">you are.</span>
+            {t.contact.headingA}{" "}
+            <span className="text-accent">{t.contact.headingB}</span>
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="mt-12 sm:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
           <Reveal>
             <ContactInfo />
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="bg-surface border border-border p-6 sm:p-10">
+            <div className="bg-surface border border-border p-5 sm:p-8 lg:p-10">
               <AnimatePresence mode="wait">
                 {submitted ? (
                   <SuccessState key="success" />
@@ -104,11 +105,11 @@ export default function Contact() {
                     onSubmit={onSubmit}
                     noValidate
                     className="space-y-5"
-                    aria-label="Quote request form"
+                    aria-label={t.contact.formAria}
                   >
                     <Field
                       id="name"
-                      label="Name"
+                      label={t.contact.fields.name}
                       value={form.name}
                       onChange={update("name")}
                       error={errors.name}
@@ -117,7 +118,7 @@ export default function Contact() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <Field
                         id="phone"
-                        label="Phone"
+                        label={t.contact.fields.phone}
                         type="tel"
                         value={form.phone}
                         onChange={update("phone")}
@@ -126,7 +127,7 @@ export default function Contact() {
                       />
                       <Field
                         id="email"
-                        label="Email"
+                        label={t.contact.fields.email}
                         type="email"
                         value={form.email}
                         onChange={update("email")}
@@ -136,7 +137,7 @@ export default function Contact() {
                     </div>
                     <Field
                       id="vehicle"
-                      label="Vehicle (year / make / model)"
+                      label={t.contact.fields.vehicle}
                       value={form.vehicle}
                       onChange={update("vehicle")}
                       error={errors.vehicle}
@@ -144,7 +145,7 @@ export default function Contact() {
                     />
                     <Field
                       id="description"
-                      label="Description of work needed"
+                      label={t.contact.fields.description}
                       multiline
                       value={form.description}
                       onChange={update("description")}
@@ -156,7 +157,7 @@ export default function Contact() {
                       size="lg"
                       className="w-full"
                     >
-                      Request Quote
+                      {t.contact.submit}
                     </Button>
                   </motion.form>
                 )}
@@ -166,7 +167,7 @@ export default function Contact() {
         </div>
 
         <Reveal delay={0.15}>
-          <div className="mt-12 lg:mt-16 aspect-[16/7] w-full overflow-hidden border border-border bg-elevated">
+          <div className="mt-10 sm:mt-12 lg:mt-16 aspect-[4/3] sm:aspect-[16/8] lg:aspect-[16/7] w-full overflow-hidden border border-border bg-elevated">
             <iframe
               src={MAP_EMBED}
               width="100%"
@@ -175,7 +176,7 @@ export default function Contact() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Deluxe Auto Werks location map"
+              title={t.contact.mapTitle}
             />
           </div>
         </Reveal>
@@ -185,26 +186,38 @@ export default function Contact() {
 }
 
 function ContactInfo() {
+  const { t } = useLang();
   return (
-    <div className="space-y-8">
-      <InfoRow icon={<MapPin className="h-5 w-5" strokeWidth={1.5} />} label="Visit">
+    <div className="space-y-7 sm:space-y-8">
+      <InfoRow
+        icon={<MapPin className="h-5 w-5" strokeWidth={1.5} />}
+        label={t.contact.visit}
+      >
         <a
           href={`https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-accent underline-grow"
+          className="hover:text-accent underline-grow break-words"
         >
           {ADDRESS}
         </a>
       </InfoRow>
-      <InfoRow icon={<Phone className="h-5 w-5" strokeWidth={1.5} />} label="Call">
+      <InfoRow
+        icon={<Phone className="h-5 w-5" strokeWidth={1.5} />}
+        label={t.contact.call}
+      >
         <a href={PHONE_HREF} className="hover:text-accent underline-grow">
           {PHONE_DISPLAY}
         </a>
       </InfoRow>
-      <InfoRow icon={<Clock className="h-5 w-5" strokeWidth={1.5} />} label="Hours">
-        <span className="block">Mon&ndash;Fri · 8:30 AM &ndash; 5:30 PM</span>
-        <span className="block text-text-secondary">Sat &amp; Sun · Closed</span>
+      <InfoRow
+        icon={<Clock className="h-5 w-5" strokeWidth={1.5} />}
+        label={t.contact.hours}
+      >
+        <span className="block">{t.contact.hoursWeekday}</span>
+        <span className="block text-text-secondary">
+          {t.contact.hoursWeekend}
+        </span>
       </InfoRow>
     </div>
   );
@@ -220,13 +233,13 @@ function InfoRow({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-4 sm:gap-5">
       <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 border border-border text-accent">
         {icon}
       </div>
-      <div>
+      <div className="min-w-0">
         <p className="label !text-text-secondary mb-2">{label}</p>
-        <div className="text-text-primary text-lg">{children}</div>
+        <div className="text-text-primary text-base sm:text-lg">{children}</div>
       </div>
     </div>
   );
@@ -261,10 +274,7 @@ function Field({
 
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="block label !text-text-secondary mb-2"
-      >
+      <label htmlFor={id} className="block label !text-text-secondary mb-2">
         {label}
       </label>
       {multiline ? (
@@ -303,6 +313,7 @@ function Field({
 }
 
 function SuccessState() {
+  const { t } = useLang();
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -313,10 +324,10 @@ function SuccessState() {
       <div className="mx-auto flex items-center justify-center h-16 w-16 border border-accent text-accent">
         <Check className="h-7 w-7" strokeWidth={2} />
       </div>
-      <h3 className="display mt-6 text-3xl sm:text-4xl">Thanks.</h3>
-      <p className="mt-3 text-text-secondary">
-        We&apos;ll call you within 1 business day.
-      </p>
+      <h3 className="display mt-6 text-3xl sm:text-4xl">
+        {t.contact.successHeading}
+      </h3>
+      <p className="mt-3 text-text-secondary">{t.contact.successBody}</p>
     </motion.div>
   );
 }

@@ -1,36 +1,42 @@
+"use client";
+
 import { Facebook, Instagram } from "lucide-react";
 import Container from "@/components/ui/Container";
-
-const links = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLang } from "@/components/LangProvider";
 
 export default function Footer() {
+  const { t } = useLang();
+
+  const links = [
+    { label: t.nav.services, href: "#services" },
+    { label: t.nav.work, href: "#work" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.reviews, href: "#reviews" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
+
   return (
     <footer className="bg-black border-t border-border">
-      <Container className="py-16 sm:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <Container className="py-14 sm:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12">
           <div>
             <a
               href="#top"
-              className="display leading-[0.85] inline-block"
+              className="display leading-[0.85] inline-block whitespace-nowrap"
               aria-label="Deluxe Auto Werks"
             >
               <span className="block text-2xl">DELUXE</span>
               <span className="block text-2xl text-accent">AUTO WERKS</span>
             </a>
             <p className="mt-5 max-w-xs text-text-secondary text-sm leading-relaxed">
-              Family-run auto body shop in West Chicago. Collision repair,
-              custom paint, and restoration done right.
+              {t.footer.tagline}
             </p>
           </div>
 
           <div>
-            <p className="label !text-text-secondary mb-5">Explore</p>
+            <p className="label !text-text-secondary mb-5">
+              {t.footer.explore}
+            </p>
             <ul className="space-y-3">
               {links.map((l) => (
                 <li key={l.href}>
@@ -46,7 +52,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="label !text-text-secondary mb-5">Visit</p>
+            <p className="label !text-text-secondary mb-5">{t.footer.visit}</p>
             <address className="not-italic text-text-primary leading-relaxed">
               319 Wilson Ave
               <br />
@@ -61,10 +67,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-border flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-6">
-          <p className="text-xs text-text-secondary">
-            &copy; 2026 Deluxe Auto Werks. All rights reserved.
-          </p>
+        <div className="mt-12 sm:mt-16 pt-8 border-t border-border flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-6">
+          <p className="text-xs text-text-secondary">{t.footer.copyright}</p>
           <div className="flex gap-3">
             <a
               href="#"

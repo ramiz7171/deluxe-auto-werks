@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import { LangProvider } from "@/components/LangProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,8 +36,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${display.variable}`}>
-      <body>
-        <SmoothScroll>{children}</SmoothScroll>
+      <body className="overflow-x-clip">
+        <LangProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </LangProvider>
       </body>
     </html>
   );

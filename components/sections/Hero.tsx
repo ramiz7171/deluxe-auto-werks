@@ -5,14 +5,10 @@ import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
-
-const headlineLines = [
-  { text: "Precision", accent: false },
-  { text: "Auto Body", accent: true },
-  { text: "Craft.", accent: false },
-];
+import { useLang } from "@/components/LangProvider";
 
 export default function Hero() {
+  const { t } = useLang();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -21,11 +17,17 @@ export default function Hero() {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  const lines = [
+    { text: t.hero.line1, accent: false },
+    { text: t.hero.line2, accent: true },
+    { text: t.hero.line3, accent: false },
+  ];
+
   return (
     <section
       ref={ref}
       id="top"
-      className="relative min-h-[100svh] w-full overflow-hidden flex items-end pb-24 sm:pb-32"
+      className="relative min-h-[100svh] w-full overflow-hidden flex items-end pb-20 sm:pb-32 pt-32"
     >
       <motion.div
         aria-hidden
@@ -50,16 +52,16 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="label mb-6"
         >
-          West Chicago, IL · Since 2010
+          {t.hero.kicker}
         </motion.div>
 
         <h1
-          className="display text-text-primary"
+          className="display text-text-primary break-words"
           style={{
-            fontSize: "clamp(4rem, 12vw, 10rem)",
+            fontSize: "clamp(3rem, 12vw, 10rem)",
           }}
         >
-          {headlineLines.map((line, i) => (
+          {lines.map((line, i) => (
             <motion.span
               key={i}
               initial={{ opacity: 0, y: 40 }}
@@ -80,26 +82,25 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-8 max-w-xl text-base sm:text-lg text-text-secondary leading-relaxed"
+          className="mt-6 sm:mt-8 max-w-xl text-base sm:text-lg text-text-secondary leading-relaxed"
         >
-          West Chicago&apos;s trusted body shop since 2010. Collision repair,
-          custom paint, and restoration done right the first time.
+          {t.hero.sub}
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.85 }}
-          className="mt-10 flex flex-col sm:flex-row gap-4"
+          className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4"
         >
           <a href="#contact">
-            <Button variant="primary" size="lg">
-              Get a Free Quote
+            <Button variant="primary" size="lg" className="w-full sm:w-auto">
+              {t.hero.ctaPrimary}
             </Button>
           </a>
           <a href="#work">
-            <Button variant="outline" size="lg">
-              See Our Work
+            <Button variant="outline" size="lg" className="w-full sm:w-auto">
+              {t.hero.ctaSecondary}
             </Button>
           </a>
         </motion.div>
@@ -108,9 +109,11 @@ export default function Hero() {
       <motion.div
         aria-hidden
         style={{ opacity }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-secondary"
+        className="hidden sm:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-text-secondary"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+        <span className="text-[10px] uppercase tracking-[0.3em]">
+          {t.hero.scroll}
+        </span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
