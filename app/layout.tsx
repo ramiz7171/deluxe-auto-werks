@@ -21,11 +21,17 @@ export const metadata: Metadata = {
   title: "Deluxe Auto Werks — Precision Auto Body Craft | West Chicago, IL",
   description:
     "West Chicago's trusted body shop since 2010. Collision repair, custom paint, and restoration done right the first time.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "Deluxe Auto Werks",
     description:
       "Precision auto body craft. Collision repair, custom paint, and restoration in West Chicago, IL.",
     type: "website",
+    images: [{ url: "/logo.png" }],
   },
 };
 

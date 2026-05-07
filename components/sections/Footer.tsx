@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Facebook, Instagram } from "lucide-react";
 import Container from "@/components/ui/Container";
 import { useLang } from "@/components/LangProvider";
@@ -22,11 +23,16 @@ export default function Footer() {
           <div>
             <a
               href="#top"
-              className="display leading-[0.85] inline-block whitespace-nowrap"
+              className="inline-flex items-center"
               aria-label="Deluxe Auto Werks"
             >
-              <span className="block text-2xl">DELUXE</span>
-              <span className="block text-2xl text-accent">AUTO WERKS</span>
+              <Image
+                src="/logo.png"
+                alt="Deluxe Auto Werks"
+                width={200}
+                height={200}
+                className="h-28 w-28 sm:h-36 sm:w-36 object-contain"
+              />
             </a>
             <p className="mt-5 max-w-xs text-text-secondary text-sm leading-relaxed">
               {t.footer.tagline}

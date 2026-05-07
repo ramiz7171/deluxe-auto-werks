@@ -22,7 +22,7 @@ export default function About() {
   const { t } = useLang();
 
   return (
-    <section id="about" className="relative py-20 sm:py-32 lg:py-[120px]">
+    <section id="about" className="relative py-12 sm:py-32 lg:py-[120px]">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <Reveal>

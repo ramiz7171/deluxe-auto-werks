@@ -38,7 +38,7 @@ export default function Work() {
   return (
     <section
       id="work"
-      className="relative py-20 sm:py-32 lg:py-[120px] bg-surface/50"
+      className="relative py-12 sm:py-32 lg:py-[120px] bg-surface/50"
     >
       <Container>
         <Reveal>
@@ -54,7 +54,7 @@ export default function Work() {
           </h2>
         </Reveal>
 
-        <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:auto-rows-[260px]">
+        <div className="mt-8 sm:mt-16 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:auto-rows-[260px]">
           {photos.map((p, i) => (
             <motion.figure
               key={p.src}

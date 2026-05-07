@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Container from "@/components/ui/Container";
@@ -52,12 +53,16 @@ export default function Nav() {
           <a
             href="#top"
             aria-label={t.nav.home}
-            className="display text-text-primary leading-[0.85] whitespace-nowrap shrink-0"
+            className="flex items-center text-text-primary shrink-0"
           >
-            <span className="block text-base sm:text-xl">DELUXE</span>
-            <span className="block text-base sm:text-xl text-accent">
-              AUTO WERKS
-            </span>
+            <Image
+              src="/logo.png"
+              alt="Deluxe Auto Werks"
+              width={200}
+              height={200}
+              priority
+              className="h-16 w-16 sm:h-24 sm:w-24 lg:h-36 lg:w-36 object-contain"
+            />
           </a>
 
           <nav
@@ -77,7 +82,7 @@ export default function Nav() {
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <LangToggle />
-            <a href="#contact" className="hidden sm:block">
+            <a href="tel:+16306642793" className="hidden sm:block">
               <Button variant="primary" size="md">
                 {t.nav.cta}
               </Button>
@@ -107,9 +112,18 @@ export default function Nav() {
             aria-modal="true"
           >
             <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-border">
-              <span className="display leading-[0.85]">
-                <span className="block text-base">DELUXE</span>
-                <span className="block text-base text-accent">AUTO WERKS</span>
+              <span className="flex items-center gap-3">
+                <Image
+                  src="/logo.png"
+                  alt="Deluxe Auto Werks"
+                  width={40}
+                  height={40}
+                  className="h-9 w-9 object-contain"
+                />
+                <span className="display leading-[0.85]">
+                  <span className="block text-base">DELUXE</span>
+                  <span className="block text-base text-accent">AUTO WERKS</span>
+                </span>
               </span>
               <div className="flex items-center gap-2">
                 <LangToggle />
@@ -142,7 +156,7 @@ export default function Nav() {
                 </motion.a>
               ))}
               <motion.a
-                href="#contact"
+                href="tel:+16306642793"
                 onClick={close}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}

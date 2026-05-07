@@ -8,7 +8,7 @@ export const dictionaries = {
       about: "About",
       reviews: "Reviews",
       contact: "Contact",
-      cta: "Get a Quote",
+      cta: "Call Us",
       openMenu: "Open menu",
       closeMenu: "Close menu",
       home: "Deluxe Auto Werks home",
@@ -20,7 +20,7 @@ export const dictionaries = {
       line3: "Craft.",
       sub:
         "West Chicago's trusted body shop since 2010. Collision repair, custom paint, and restoration done right the first time.",
-      ctaPrimary: "Get a Free Quote",
+      ctaPrimary: "Call Us",
       ctaSecondary: "See Our Work",
       scroll: "Scroll",
     },
@@ -99,7 +99,6 @@ export const dictionaries = {
       headingA: "Don't take our word",
       headingB: "for it.",
       role: "Local Guide",
-      placeholder: "More reviews coming soon",
       starsAria: "5 out of 5 stars",
     },
     contact: {
@@ -112,22 +111,7 @@ export const dictionaries = {
       hoursWeekday: "Mon–Fri · 8:30 AM – 5:30 PM",
       hoursWeekend: "Sat & Sun · Closed",
       mapTitle: "Deluxe Auto Werks location map",
-      formAria: "Quote request form",
-      fields: {
-        name: "Name",
-        phone: "Phone",
-        email: "Email",
-        vehicle: "Vehicle (year / make / model)",
-        description: "Description of work needed",
-      },
-      errors: {
-        required: "Required",
-        phone: "Invalid phone",
-        email: "Invalid email",
-      },
-      submit: "Request Quote",
-      successHeading: "Thanks.",
-      successBody: "We'll call you within 1 business day.",
+      callCta: "Call Us",
     },
     footer: {
       tagline:
@@ -148,7 +132,7 @@ export const dictionaries = {
       about: "Nosotros",
       reviews: "Reseñas",
       contact: "Contacto",
-      cta: "Cotizar",
+      cta: "Llámanos",
       openMenu: "Abrir menú",
       closeMenu: "Cerrar menú",
       home: "Inicio Deluxe Auto Werks",
@@ -160,7 +144,7 @@ export const dictionaries = {
       line3: "Automotriz.",
       sub:
         "El taller de carrocería de confianza de West Chicago desde 2010. Reparación de colisiones, pintura personalizada y restauración bien hechas a la primera.",
-      ctaPrimary: "Cotización Gratis",
+      ctaPrimary: "Llámanos",
       ctaSecondary: "Ver Nuestro Trabajo",
       scroll: "Desliza",
     },
@@ -241,7 +225,6 @@ export const dictionaries = {
       headingA: "No solo créanos",
       headingB: "a nosotros.",
       role: "Guía Local",
-      placeholder: "Más reseñas próximamente",
       starsAria: "5 de 5 estrellas",
     },
     contact: {
@@ -254,22 +237,7 @@ export const dictionaries = {
       hoursWeekday: "Lun–Vie · 8:30 AM – 5:30 PM",
       hoursWeekend: "Sáb y Dom · Cerrado",
       mapTitle: "Mapa de ubicación Deluxe Auto Werks",
-      formAria: "Formulario de solicitud de cotización",
-      fields: {
-        name: "Nombre",
-        phone: "Teléfono",
-        email: "Correo",
-        vehicle: "Vehículo (año / marca / modelo)",
-        description: "Descripción del trabajo",
-      },
-      errors: {
-        required: "Obligatorio",
-        phone: "Teléfono inválido",
-        email: "Correo inválido",
-      },
-      submit: "Solicitar Cotización",
-      successHeading: "Gracias.",
-      successBody: "Te llamaremos dentro de 1 día hábil.",
+      callCta: "Llámanos",
     },
     footer: {
       tagline:

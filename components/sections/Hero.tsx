@@ -27,7 +27,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative min-h-[100svh] w-full overflow-hidden flex items-end pb-20 sm:pb-32 pt-32"
+      className="relative sm:min-h-[100svh] w-full overflow-hidden flex items-start sm:items-end pb-12 sm:pb-32 pt-24 sm:pt-32"
     >
       <motion.div
         aria-hidden
@@ -93,7 +93,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.85 }}
           className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4"
         >
-          <a href="#contact">
+          <a href="tel:+16306642793">
             <Button variant="primary" size="lg" className="w-full sm:w-auto">
               {t.hero.ctaPrimary}
             </Button>
